@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>你的秘密天使想同你講...</title>
+  <title>抽一句</title>
 
   <style>
     :root{
@@ -36,7 +36,7 @@
       padding: 18px;
       background: #fff;
       box-sizing: border-box;
-      text-align: center;               /* 全卡文字置中 */
+      text-align: center;
     }
 
     .quote{
@@ -47,7 +47,7 @@
       min-height: 6.2em;
       display: flex;
       align-items: center;
-      justify-content: center;           /* 句子水平＋垂直置中 */
+      justify-content: center;
       text-align: center;
     }
 
@@ -89,7 +89,7 @@
 <body>
   <div class="wrap">
     <div class="card">
-      <div id="quote" class="quote">按一下「抽一句」。</div>
+      <div id="quote" class="quote">載入中⋯⋯</div>
 
       <div class="btns">
         <button id="draw">抽一句</button>
@@ -101,7 +101,9 @@
   </div>
 
 <script>
-const quotes = [
+document.addEventListener("DOMContentLoaded", function () {
+
+  const quotes = [
 "今日未出事，已屬順利。",
 "能夠準時出現，仍然具備競爭力。",
 "今日表現普通，並無需道歉。",
@@ -226,6 +228,39 @@ const quotes = [
 "一起整理桌面，象徵性地重新開始。",
 "互相撐過今日，其餘問題留待日後處理。",
 "記住：工作是暫時，同盟關係較為長久。"
-];
+  ];
 
-cons
+  const quoteEl = document.getElementById("quote");
+  const drawBtn  = document.getElementById("draw");
+  const copyBtn  = document.getElementById("copy");
+
+  function draw(){
+    const i = Math.floor(Math.random() * quotes.length);
+    quoteEl.textContent = quotes[i];
+  }
+
+  async function copy(){
+    try{
+      await navigator.clipboard.writeText(quoteEl.textContent);
+      copyBtn.textContent = "已複製";
+      setTimeout(() => copyBtn.textContent = "複製", 900);
+    }catch(e){
+      const range = document.createRange();
+      range.selectNodeContents(quoteEl);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      alert("未能自動複製，已為你選取文字，可手動複製。");
+    }
+  }
+
+  drawBtn.onclick = draw;
+  copyBtn.onclick = copy;
+
+  // 頁面一開先抽一句
+  draw();
+});
+</script>
+
+</body>
+</html>
