@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>抽一句</title>
+  <title>你的秘密天使想同你講...</title>
 
   <style>
     :root{
@@ -36,6 +36,7 @@
       padding: 18px;
       background: #fff;
       box-sizing: border-box;
+      text-align: center;               /* 全卡文字置中 */
     }
 
     .quote{
@@ -46,6 +47,8 @@
       min-height: 6.2em;
       display: flex;
       align-items: center;
+      justify-content: center;           /* 句子水平＋垂直置中 */
+      text-align: center;
     }
 
     .btns{
@@ -225,29 +228,4 @@ const quotes = [
 "記住：工作是暫時，同盟關係較為長久。"
 ];
 
-const quoteEl = document.getElementById("quote");
-const drawBtn = document.getElementById("draw");
-const copyBtn = document.getElementById("copy");
-
-function draw(){
-  const i = Math.floor(Math.random() * quotes.length);
-  quoteEl.textContent = quotes[i];
-}
-
-async function copy(){
-  try{
-    await navigator.clipboard.writeText(quoteEl.textContent);
-    copyBtn.textContent = "已複製";
-    setTimeout(()=>copyBtn.textContent="複製", 900);
-  }catch(e){
-    alert("未能複製，請手動選取文字。");
-  }
-}
-
-drawBtn.addEventListener("click", draw);
-copyBtn.addEventListener("copy", copy);
-drawBtn.addEventListener("click", draw);
-copyBtn.addEventListener("click", copy);
-</script>
-</body>
-</html>
+cons
